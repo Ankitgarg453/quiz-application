@@ -1,0 +1,41 @@
+{% extends 'quiz/base.html' %}
+{% load static %}
+
+{% block title %}
+User | Data | View
+{% endblock title %}
+
+{% block navbar %}
+{% include 'quiz/navbar.html' %}
+{% endblock navbar %}
+
+{% block contant %}
+{% if request.user.is_authenticated %}
+<div class="col-12">
+    {% if messages %}
+    {% for message in messages %}
+    <!-- <p {% if message.tags %} class="alert alert-{{message.tags}} md-5 {% endif %}">{{message}}</p> -->
+    <div {% if message.tags %} class="alert alert-{{ message.tags }} {% endif %}">
+        {{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button></div>
+    {% endfor %}
+    {% endif %}
+    <form class="autherization_form" action="" method="POST" novalidate>
+        {% csrf_token %}
+        {% for fm in form %}
+        <div class="form-group">
+            <p>{{fm.label_tag}}</p>
+            <div>{{fm}}</div>
+            <p class="text-danger">{{fm.errors|striptags}}</p>
+        </div>
+        {% endfor %}
+        <input type="submit" class="btn">
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p>{{error}}</p>
+        {% endfor %}
+        {% endif %}
+    </form>
+</div>
+{% endif %}
+{% endblock contant %}

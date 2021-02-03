@@ -1,0 +1,58 @@
+{% block navbar %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Bache ka Future</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'quizapp:student_details' %}">Add New Student</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'quizapp:addQuestions' %}">Add New Questions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'quizapp:questions_list' %}">View Added Questions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'quizapp:students_list' %}">View All Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#myModal" href="">Schedule Exam</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                    href="javascript:window.open('some.html', 'yourWindowName', 'width=200,height=150');">Go to
+                    exam.</a>
+            </li>
+        </ul>
+        {% if request.user.is_authenticated %}
+        <span class="navbar-text">
+            Hello' {{user.first_name|title}} {{user.last_name}}
+        </span>
+        {% if request.user.is_superuser %}
+        <a class="nav-link" href="/admin/">Admin</a>
+        {% endif %}
+        <a class="nav-link" href="/logout/">Logout</a>
+        {% else %}
+        <a class="nav-link" href="/login/">Login</a>
+        {% endif %}
+    </div>
+
+
+
+
+</nav>
+{% endblock navbar %}
