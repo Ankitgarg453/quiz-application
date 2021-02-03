@@ -86,7 +86,7 @@ class AddQuestionAnswerView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     form_class = QuestionAnswerForm
     success_message = 'Your Question saved successfully. Please enter your new Question.'
     warning_message = 'Your Question is not saved. Please try once again with right data.'
-    template_name = 'quiz/addquestions.html'
+    template_name = 'quiz/addupdatequestions.html'
     success_url = '/addQuestions/'
 
     # def get_context_data(self, *args, **kwargs):
@@ -123,12 +123,12 @@ class UpdateQuestionAnswersVeiw(LoginRequiredMixin,SuccessMessageMixin, UpdateVi
     form_class = QuestionAnswerForm
     success_message = 'Your Question updated successfully.'
     warning_message = 'Your Question is not saved. Please try once again with right data.'
-    template_name = 'quiz/addquestions.html'
+    template_name = 'quiz/addupdatequestions.html'
     success_url = '/list/'
 
     def form_valid(self, form):
         # form.instance.created_by = self.request.user
-        form.instance.user = self.request.user
+        form.instance.user = str(self.request.user)
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -175,11 +175,11 @@ class DisplayAllStudentsListView(LoginRequiredMixin, ListView):
     redirect_field_name = 'redirect_to'
     login_url = '/login/'
     model = StudentDetails
-    fields = ['Student_Image','Student_First_Name','Student_Last_Name','Student_Birth_Date','Student_ParentMobile','Student_ParentEmail','Student_City','Student_School','Student_Class','Student_ClassGrade','Student_UniqueId']
+    fields = ['Student_UniqueId','Student_Image','Student_First_Name','Student_Last_Name','Student_Birth_Date','Student_ParentMobile','Student_ParentEmail','Student_City','Student_School','Student_Class','Student_ClassGrade']
     template_name = 'quiz/studentlistview.html'
 
     def get_queryset(self):
-        return StudentDetails.objects.values('Student_Image','Student_First_Name','Student_Last_Name','Student_Birth_Date','Student_ParentMobile','Student_ParentEmail','Student_City','Student_School','Student_Class','Student_ClassGrade','Student_UniqueId').filter(user = self.request.session.get('userid'))
+        return StudentDetails.objects.values('Student_UniqueId','Student_Image','Student_First_Name','Student_Last_Name','Student_Birth_Date','Student_ParentMobile','Student_ParentEmail','Student_City','Student_School','Student_Class','Student_ClassGrade').filter(user = self.request.session.get('userid'))
 
 #----------------------- Update Student Details View----------------------
 class UpdateStudentsDetailsView(LoginRequiredMixin, UpdateView):

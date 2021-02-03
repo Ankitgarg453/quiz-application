@@ -1,0 +1,43 @@
+{% extends 'quiz/base.html' %}
+{% load static %}
+
+{% block title %}
+User | Data | View
+{% endblock title %}
+
+{% block navbar %}
+{% include 'quiz/navbar.html' %}
+{% endblock navbar %}
+
+{% block contant %}
+{% if request.user.is_authenticated %}
+
+{% for object in object_list %}
+<div class="card" enctype="multipart/form-data">
+    <div class="container">
+        <p>{{object.Student_Class}}</p>
+        <p>{{object.Subject}}</p>
+        <p>{{object.Question}}</p>
+        <p>{{object.Answer_1}}</p>
+        <p>{{object.Answer_2}}</p>
+        <p>{{object.Answer_3}}</p>
+        <p>{{object.Answer_4}}</p>
+        <p>{{object.Answer_5}}</p>
+        <p>{{object.Rightanswer}}</p>
+    </div>
+    <a href="{% url 'quizapp:edit_record' object.Question_Unique_Id %}" class="btn text-secondary px-0">
+        <i class="far fa-edit fa-lg"></i>
+    </a>
+    <form action="{% url 'quizapp:question_delete' object.Question_Unique_Id %} " method="post" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn">
+            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+        </button>
+    </form>
+</div>
+{% empty %}
+<h3>You do not have any records or data added. <a href="{% url 'quizapp:addQuestions' %}">Click here</a> to add more.
+</h3>
+{% endfor %}
+{% endif %}
+{% endblock contant %}

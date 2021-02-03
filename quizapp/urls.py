@@ -18,4 +18,4 @@ urlpatterns = [
     path('delete-record/<str:pk>',DeleteStudentRecordView.as_view(), name = 'delete_student_record'),
     path('exam/',StudentQuestionAnsweredView.as_view(), name='schedulexam'),
     path('thankyou/', ThanksTempalateView.as_view(), name='thanks'),
-]
+] 

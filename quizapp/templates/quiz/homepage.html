@@ -2,9 +2,15 @@
 {% load static %}
 
 {% block title %}
-User | Login
+User | Data | View
 {% endblock title %}
 
+{% block navbar %}
+{% include 'quiz/navbar.html' %}
+{% endblock navbar %}
+
 {% block contant %}
+{% if request.user.is_authenticated %}
 <p>Home Page</p>
+{% endif %}
 {% endblock contant %}

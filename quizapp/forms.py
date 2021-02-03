@@ -140,5 +140,5 @@ class StudentDetailsForm(forms.ModelForm):
         super(StudentDetailsForm, self).__init__(*args, **kwargs)
         self.fields['Student_Class'].empty_label='Select'
         self.fields['Student_AlterMobile'].required = False
-        self.fields['Student_Image'].required = False
+        # self.fields['Student_Image'].required = False
     
