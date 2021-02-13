@@ -30,7 +30,69 @@
                 <a class="nav-link" href="{% url 'quizapp:students_list' %}">View All Students</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#myModal" href="">Schedule Exam</a>
+                <div id="ScheduleExamModal" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>Schedule Exam</span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Select below to Schedule Exam</p>
+                                <form method="POST" action="{% url 'quizapp:schedulexam' %}">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <!-- <label for="sel1">Select Class:</label> -->
+                                        <select class="form-control" id="Student_Class" name="Student_Class">
+                                            <option value=''>Select Class</option>
+                                            <option value='UKG'>UKG</option>
+                                            <option value='LKG'>LKG</option>
+                                            <option value='Pre-Primary'>Pre-Primary</option>
+                                            <option value='KG'>KG</option>
+                                            <option value='1'>1st</option>
+                                            <option value='2'>2nd</option>
+                                            <option value='3'>3rd</option>
+                                            <option value='4'>4th</option>
+                                            <option value='5'>5th</option>
+                                            <option value='6'>6th</option>
+                                            <option value='7'>7th</option>
+                                            <option value='8'>8th</option>
+                                            <option value='9'>9th</option>
+                                            <option value='10'>10th</option>
+                                            <option value='Other'>Other</option>
+                                        </select>
+                                        <br>
+                                        <!-- <label for="sel1">Select Subject:</label> -->
+                                        <select class="form-control" id="Subject" name="Subject">
+                                            <option value=''>Select Subject</option>
+                                            <option value='English'>English</option>
+                                            <option value='Hindi'>Hindi</option>
+                                            <option value='Maths'>Maths</option>
+                                            <option value='Physics'>Physics</option>
+                                            <option value='Science'>Science</option>
+                                            <option value='SST'>SST</option>
+                                            <option value='Punjabi'>Punjabi</option>
+                                            <option value='Drawing'>Drawing</option>
+                                            <option value='GK'>GK</option>
+                                            <option value='Computers'>Computers</option>
+                                            <option value='Other'>Other</option>
+                                        </select>
+                                    </div>
+                                    <hr>
+                                    <button type="submit" class="btn btn-primary">Go</button>
+                                    <!-- onclick="ScheduleExam()" -->
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+                <a class="nav-link" data-toggle="modal" data-target="#ScheduleExamModal">Schedule Exam</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"
@@ -38,17 +100,19 @@
                     exam.</a>
             </li>
         </ul>
-        {% if request.user.is_authenticated %}
-        <span class="navbar-text">
-            Hello' {{user.first_name|title}} {{user.last_name}}
-        </span>
-        {% if request.user.is_superuser %}
-        <a class="nav-link" href="/admin/">Admin</a>
-        {% endif %}
-        <a class="nav-link" href="/logout/">Logout</a>
-        {% else %}
-        <a class="nav-link" href="/login/">Login</a>
-        {% endif %}
+    </div>
+
+    {% if request.user.is_authenticated %}
+    <span class="navbar-text">
+        Hello' {{user.first_name|title}} {{user.last_name}}
+    </span>
+    {% if request.user.is_superuser %}
+    <a class="nav-link" href="/admin/">Admin</a>
+    {% endif %}
+    <a class="nav-link" href="/logout/">Logout</a>
+    {% else %}
+    <a class="nav-link" href="/login/">Login</a>
+    {% endif %}
     </div>
 
 

@@ -1,5 +1,5 @@
 from django.urls import path
-from quizapp.views import LoginView,UserCreationView,ThanksTempalateView, UserLogout,StudentQuestionAnsweredView,AddNewStudentView,Home,  DisplayAllStudentsListView, UpdateStudentsDetailsView, DeleteStudentRecordView, AddQuestionAnswerView,  UpdateQuestionAnswersVeiw,QuestionAnswerDeleteRecordView, QuestionAnswerDisplayListView
+from quizapp.views import LoginView,UserCreationView,ThanksTempalateView, UserLogout,ScheduleExamView,AddNewStudentView,Home,  DisplayAllStudentsListView, UpdateStudentsDetailsView, DeleteStudentRecordView, AddQuestionAnswerView,  UpdateQuestionAnswersVeiw,QuestionAnswerDeleteRecordView, QuestionAnswerDisplayListView
 
 app_name = 'quizapp'
 
@@ -16,6 +16,6 @@ urlpatterns = [
     path('stulist/', DisplayAllStudentsListView.as_view(), name= 'students_list'),
     path('edit-details/<str:pk>',UpdateStudentsDetailsView.as_view(), name='edit_student_details'),
     path('delete-record/<str:pk>',DeleteStudentRecordView.as_view(), name = 'delete_student_record'),
-    path('exam/',StudentQuestionAnsweredView.as_view(), name='schedulexam'),
+    path('exam/',ScheduleExamView.as_view(), name='schedulexam'),
     path('thankyou/', ThanksTempalateView.as_view(), name='thanks'),
 ] 

@@ -175,11 +175,11 @@ class DisplayAllStudentsListView(LoginRequiredMixin, ListView):
     redirect_field_name = 'redirect_to'
     login_url = '/login/'
     model = StudentDetails
-    fields = ['Student_UniqueId','Student_Image','Student_First_Name','Student_Last_Name','Student_Birth_Date','Student_ParentMobile','Student_ParentEmail','Student_City','Student_School','Student_Class','Student_ClassGrade']
+    fields = ['Student_UniqueId','Student_Image','Student_First_Name','Student_Last_Name','Student_MotherName','Student_FatherName','Student_AlterMobile','Student_Birth_Date','Student_State','Student_ParentMobile','Student_ParentEmail','Student_City','Student_School','Student_Class','Student_ClassGrade']
     template_name = 'quiz/studentlistview.html'
 
     def get_queryset(self):
-        return StudentDetails.objects.values('Student_UniqueId','Student_Image','Student_First_Name','Student_Last_Name','Student_Birth_Date','Student_ParentMobile','Student_ParentEmail','Student_City','Student_School','Student_Class','Student_ClassGrade').filter(user = self.request.session.get('userid'))
+        return StudentDetails.objects.values('Student_UniqueId','Student_Image','Student_First_Name','Student_Last_Name','Student_MotherName','Student_FatherName','Student_AlterMobile','Student_Birth_Date','Student_State','Student_ParentMobile','Student_ParentEmail','Student_City','Student_School','Student_Class','Student_ClassGrade').filter(user = self.request.session.get('userid'))
 
 #----------------------- Update Student Details View----------------------
 class UpdateStudentsDetailsView(LoginRequiredMixin, UpdateView):
@@ -206,11 +206,22 @@ class DeleteStudentRecordView(LoginRequiredMixin, DeleteView):
 
 
 # -------------- Exam for/by Student View --------------------
-class StudentQuestionAnsweredView(LoginRequiredMixin,CreateView):
-    redirect_field_name = 'redirect_to'
-    login_url = '/login/'
-    template_name = 'quiz/studentquestionanswered.html'
+# class ScheduleExamView(LoginRequiredMixin,CreateView):
+#     redirect_field_name = 'redirect_to'
+#     login_url = '/login/'
+#     template_name = 'quiz/studentquestionanswered.html'
 
+class ScheduleExamView(View):    
+    def post(self, request):
+        if request.user.is_authenticated:
+            student_class = request.POST['Student_Class']
+            subject = request.POST['Subject']
+            print(student_class)
+            print(subject)
+            exam = {'exam_schedule' : QuestionAnswerModel.objects.values('Question_Unique_Id','Student_Class','Subject').filter(Student_Class=student_class, Subject = subject, user=self.request.session.get('userid')).order_by('Created_Date'), 'students' : StudentDetails.objects.values('Student_UniqueId','Student_First_Name','Student_Last_Name','Student_School','Student_Class').filter(Student_Class=student_class, user=self.request.session.get('userid'))}
+            return render(request, 'quiz/scheduleexam.html',exam)
+        else:
+            return redirect('/login/')
 # ----------------- User Logout ------------------
 def UserLogout(request):
     print(request.session.get('userid'))
