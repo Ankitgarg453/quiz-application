@@ -1,0 +1,59 @@
+{% extends 'quiz/base.html' %}
+{% load static %}
+
+{% block title %}
+User | Data | View
+{% endblock title %}
+
+{% block navbar %}
+{% include 'quiz/navbar.html' %}
+{% endblock navbar %}
+
+{% block contant %}
+{% if request.user.is_authenticated %}
+<h3>Select Exam</h3>
+{% for object in exam_schedule %}
+<div>
+    <label>
+        <input type="checkbox" class="radio" value="{{object.Question_Unique_Id}}"
+            name="fooby[1][]" />{{object.Student_Class}}
+        {{object.Subject}}</label>
+    <!-- <label>
+        <p>{{object.Student_Class}} {{object.Subject}}</p>
+    </label> -->
+</div>
+
+
+{% empty %}
+<h3>You do not have any exams to schedule. So you can not schedule any exam. For that <a
+        href="{% url 'quizapp:addQuestions' %}">Click here</a> to add questions.
+</h3>
+{% endfor %}
+<hr>
+<div>
+    <h3>Fruits</h3>
+    <label>
+        <input type="checkbox" class="radio" value="1" name="fooby[1][]" />Kiwi</label>
+    <label>
+        <input type="checkbox" class="radio" value="1" name="fooby[1][]" />Jackfruit</label>
+</div>
+<div>
+    <h3>Animals</h3>
+    <label>
+        <input type="checkbox" class="radio" value="1" name="fooby[2][]" />Tiger</label>
+    <label>
+        <input type="checkbox" class="radio" value="1" name="fooby[2][]" />Sloth</label>
+</div>
+<hr>
+<h3>Students </h3>
+{% for stu in students %}
+<p>{{stu.Student_First_Name}}{{stu.Student_Last_Name}}</p>
+<p>{{stu.Student_School}}</p>
+<p>{{stu.Student_Class}}</p>
+{% empty %}
+<h3>You do not have any student records added. So you can not schedule any exam. For that<a
+        href="/studentDetails/">Click here</a> to add students.
+</h3>
+{% endfor %}
+{% endif %}
+{% endblock contant %}
