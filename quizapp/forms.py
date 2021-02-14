@@ -39,8 +39,8 @@ Subject_Choice = [('', 'Select'),
 ('Biology','Biology')]
 
 class CreateUserForm(UserCreationForm):
-    password1=forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    password2=forms.CharField(label='Confirm Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password1=forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder' : 'Password' }))
+    password2=forms.CharField(label='Confirm Password',widget=forms.PasswordInput(attrs={'class':'form-control' , 'placeholder' : 'Confirm Password'}))
     class Meta:
         model = User
         fields = ['username', 'first_name','last_name','email']
@@ -50,18 +50,22 @@ class CreateUserForm(UserCreationForm):
             'email' : 'Email',
         }
         widgets = {
-            'username':forms.TextInput(attrs={'class':'form-control'}),
-            'first_name':forms.TextInput(attrs={'class':'form-control'}),
-            'last_name':forms.TextInput(attrs={'class':'form-control'}),
-            'email':forms.EmailInput(attrs={'class':'form-control'}),
+            'username':forms.TextInput(attrs={'class':'form-control', 'placeholder' : 'Username'}),
+            'first_name':forms.TextInput(attrs={'class':'form-control', 'placeholder' : 'First Name'}),
+            'last_name':forms.TextInput(attrs={'class':'form-control', 'placeholder' : 'Last Name'}),
+            'email':forms.EmailInput(attrs={'class':'form-control', 'placeholder' : 'Email'}),
         }
+    def __init__(self, *args, **kwargs):#this function gives SELECT will come at dropdown rather empty(1)--.
+        super(CreateUserForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].required = False
+        self.fields['password2'].required = False
 
 class LoginForm(AuthenticationForm):
-    username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True, 'class' : 'form-control'}))
+    username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True, 'class' : 'form-control', 'placeholder' : 'Username'}))
     password = forms.CharField(
         label=_("Password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'class' : 'form-control'}),
+        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'class' : 'form-control', 'placeholder' : 'Password'}),
     )
 
 class QuestionAnswerForm(forms.ModelForm):

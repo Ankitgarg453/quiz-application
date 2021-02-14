@@ -7,31 +7,39 @@ User | Login
 
 {% block contant %}
 <div class="col-12">
-    {% if messages %}
-    {% for message in messages %}
-    <!-- <p {% if message.tags %} class="alert alert-{{message.tags}} md-5 {% endif %}">{{message}}</p> -->
-    <div {% if message.tags %} class="alert alert-{{ message.tags }} {% endif %}">
-        {{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button></div>
-    {% endfor %}
-    {% endif %}
-    <form class="autherization_form" action="" method="POST" novalidate>
-        {% csrf_token %}
-        {% for fm in form %}
-        <div class="form-group">
-            <p>{{fm.label_tag}}</p> {{fm}} <p class="text-danger">{{fm.errors|striptags}}</p>
-        </div>
-        {% endfor %}
-        <div class="form-group centered d-flex">
-            <input type="submit" value="Login" class="btn focused_btn">
-            <span class="register"><a href="/">Click here</a><span> to Register</span>
-            </span>
-        </div>
-        {% if form.non_field_errors %}
-        {% for error in form.non_field_errors %}
-        <p>{{error}}</p>
+    <div class="log_form">
+        {% if messages %}
+        {% for message in messages %}
+        <!-- <p {% if message.tags %} class="alert alert-{{message.tags}} md-5 {% endif %}">{{message}}</p> -->
+        <div {% if message.tags %} class="alert alert-{{ message.tags }} {% endif %}">
+            {{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button></div>
         {% endfor %}
         {% endif %}
-    </form>
+        <h6 class="heading">Welcome</h6>
+       
+        <form class="autherization_form" action="" method="POST" novalidate>
+            {% csrf_token %}
+            {% for fm in form %}
+            <div class="form-group">
+                <!-- {{fm.label_tag}}  -->
+                {{fm}} <p class="text-danger">
+                    {{fm.errors|striptags}}
+                </p>
+            </div>
+            {% endfor %}
+            <div>
+                <input type="submit" value="Login" class="btn btn-block log_btn">
+            </div>
+            <div class="new_register">
+                <span class="register"><a href="/">Click here</a><span> to Register</span></span>
+            </div>
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <p>{{error}}</p>
+            {% endfor %}
+            {% endif %}
+        </form>
+    </div>
 </div>
 {% endblock contant %}
