@@ -1,4 +1,43 @@
 {% block navbar %}
+<nav class="navbar navbar-full navbar-dark bg-primary">
+	<button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#mainNavbarCollapse">
+	&#9776;
+	</button>
+	<a class="navbar-brand" href="#">
+        Bache ka Future
+	</a>
+	<div class="collapse navbar-toggleable-md" id="mainNavbarCollapse">
+		<ul class="nav navbar-nav pull-lg-right">
+			<li class="nav-item">
+				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">About Us</a>
+            </li>
+            <li class="nav-item">
+				<a class="nav-link" href="#">Contact Us</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link" id="navbarDropdown1" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                {% if request.user.is_authenticated %}
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                    <li><a class="dropdown-item" href="#">{{user.first_name|title}} {{user.last_name}}</a></li>
+                    {% if request.user.is_superuser %}
+					<li>
+                        <a class="dropdown-item" href="/admin/">Admin</a>
+                    </li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="/logout/">Logout</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="/login/">Login</a></li>
+                </ul>
+                {% endif %}
+			</li>
+		</ul>
+	</div>
+</nav>
+<!-- /.navbar -->
+
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Bache ka Future</a>
@@ -8,7 +47,7 @@
     </button>
     <div class="" id="navbarText">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <!-- <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -16,7 +55,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact Us</a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'quizapp:student_details' %}">Add New Student</a>
             </li>
@@ -102,7 +141,7 @@
         </ul>
     </div>
 
-    {% if request.user.is_authenticated %}
+    <!-- {% if request.user.is_authenticated %}
     <span class="navbar-text">
         Hello' {{user.first_name|title}} {{user.last_name}}
     </span>
@@ -112,7 +151,7 @@
     <a class="nav-link" href="/logout/">Logout</a>
     {% else %}
     <a class="nav-link" href="/login/">Login</a>
-    {% endif %}
+    {% endif %} -->
     </div>
 
 

@@ -19,7 +19,7 @@ class UserCreationView(SuccessMessageMixin, CreateView):
     success_message = 'User Created Successfully'
     warning_message = "User not created. Please check below fields again."
     template_name = 'quiz/usercreation_form.html'
-    success_url = '/'
+    success_url = '/login/'
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
